@@ -1,18 +1,11 @@
 #### Kevin Postal ###
 ## kevindpostal@gmail.com
 # This code searches a path and all its subdirectories
-# for a string/regular expression
+# for a string/regular expression then vists the url
 #
 # 2010
 # 
 
-#### Kevin Postal ###
-## kevindpostal@gmail.com
-# This code searches a path and all its subdirectories
-# for a string/regular expression then goes to the url
-#
-# 2010
-# 
 from httplib import HTTP
 from urlparse import urlparse
 import fileinput, glob, string, sys, os, re 
@@ -28,11 +21,13 @@ def search(path):
             f = open(file_path, 'r')
             reg_check = re.findall(search_string, f.read(buffsize),re.DOTALL)
             if ( reg_check ):
+                site_url = file_path.split("/")[3] 
                 file_list = list(file_path.split("/")[5:])
                 file_path = '/'.join(file_list)
-                url = "http://csiprocessing.com/%s" % (file_path)
+                url = "http://%s/%s" % (site_url,file_path)
+
                 print "%s - %s" % (url,checkURL(url) )
-                
+
             f.close()    
 
 
@@ -44,8 +39,7 @@ def checkURL(url):
      if h.getreply()[0] == 200: return 1
      else: return 0
 
-            
-            
+    
 def main(argv=sys.argv):
     search( argv[1] )
     
