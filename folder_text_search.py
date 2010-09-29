@@ -25,11 +25,8 @@ def search(path):
                 file_list = list(file_path.split("/")[5:])
                 file_path = '/'.join(file_list)
                 url = "http://%s/%s" % (site_url,file_path)
-
                 print "%s - %s" % (url,checkURL(url) )
-
             f.close()    
-
 
 def checkURL(url):
      p = urlparse(url)
