@@ -16,6 +16,7 @@ def git_redmine_sync():
     if files:
         os.chdir("/home/redmine/git")
         for item in files:
+            #yep... we are gonna del the repo and reclone it... *face palm*
             os.system("rm -fr %s/%s" % (path,item))
             os.system("/usr/local/bin/git clone --bare git@github.com:kevinpostal/%s" % (item) )
             
