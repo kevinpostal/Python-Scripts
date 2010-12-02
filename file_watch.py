@@ -10,7 +10,6 @@ while 1:
   removed = [f for f in before if not f in after]
   if added:
     if added[0] == file_to_watch:
-        print "123"
         print os.system(command)
     
 
