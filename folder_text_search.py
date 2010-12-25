@@ -18,7 +18,7 @@ def search(path):
     for dirpath, dirnames, filenames in os.walk(path):
         for filename in filenames:
             file_path = os.path.join(dirpath, filename)
-            root = "%s%s" % (path,file_path)
+            root = "%s" % (file_path)
             f = open(file_path, 'r')
             reg_check = re.findall(search_string, f.read(buffsize),re.DOTALL)
             if ( reg_check ):
