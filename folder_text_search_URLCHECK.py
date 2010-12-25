@@ -6,12 +6,13 @@
 # 2010
 # 
 
+from httplib import HTTP
 from urlparse import urlparse
 import fileinput, glob, string, sys, os, re 
 from os.path import join
 
 buffsize = 5242880 * 10 #50 Megabyte buffer limit (Server was not having max size)
-search_string = r'AKIAIUO7JNJMWSC3V2AA' #search string
+search_string = r'select.+phone.+agent' #search string
 
 def search(path):
     for dirpath, dirnames, filenames in os.walk(path):
@@ -23,9 +24,17 @@ def search(path):
                 site_url = file_path.split("/")[3] 
                 file_list = list(file_path.split("/")[5:])
                 file_path = '/'.join(file_list)
-                print "%s" % (file_path)
+                url = "http://%s/%s" % (site_url,file_path)
+                print "%s - %s" % (url,checkURL(url) )
             f.close()    
 
+def checkURL(url):
+     p = urlparse(url)
+     h = HTTP(p[1])
+     h.putrequest('HEAD', p[2])
+     h.endheaders()
+     if h.getreply()[0] == 200: return 1
+     else: return 0
 
     
 def main(argv=sys.argv):
@@ -33,3 +42,4 @@ def main(argv=sys.argv):
     
 if __name__ == "__main__":
     main()
+
